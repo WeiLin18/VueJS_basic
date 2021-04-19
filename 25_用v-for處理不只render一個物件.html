@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS -- 用v-for處理不只render一個物件</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->        
+        <!-- <h1><img src="../../images/foot.gif"> About </h1>
+        <h1><img src="../../images/foot.gif"> Products </h1>
+        <h1><img src="../../images/foot.gif"> Contact </h1>
+        <h1><img src="../../images/foot.gif"> Nothing</h1>
+        <h1><img src="../../images/foot.gif"> Something </h1> -->
+
+        <!-- 1 -->
+        <!-- <h1 v-for="header in headers"><img src="../../images/foot.gif"> {{header}} </h1> -->
+
+        <!-- 2 -->
+        <template v-for="(header,index) in headers">
+            <h1><img src="../../images/foot.gif"> {{header}} <span> -- {{index}} </span> </h1>
+        </template>
+    </div>
+
+    <script>        
+        let vm = new Vue({    
+            el: '#app',      
+            data: {                
+               headers: ['About','Products','Contact','Nothing','Something'], 
+            },
+            methods: {
+               
+            },
+        });
+    </script>
+</body>
+</html>

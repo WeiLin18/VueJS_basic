@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->
+        <h2>Classmate</h2>
+        <ol>
+            <li v-for="item in classmate" @click="TED102(item.name)">{{item.name}}</li>
+        </ol>
+    </div>
+
+    <script>
+        // 1
+        // function test(){
+        //     alert(this);
+        // }
+        // test();   //this代表window
+
+        // this代表function執行的當下的外層物件，所以this在執行時才會存在
+
+        // 2
+        // let data = {
+        //     name: 'Peter',
+        //     age: 40,
+        //     check(){
+        //         alert(this);
+        //     },
+        // };
+        // data.check();  //this代表data
+
+        new Vue({    //this代表 Vue instance(Vue實例)
+            el: '#app', 
+            data: {      //變數存放的地方
+                message: 'Hello, VueJS!',               
+                classmate: [{name:'Andy',age:25},{name:'Bella',age:25},{name:'Carl',age:23},{name:'Dale',age:21}],
+            },
+            methods: {  //函數放這裡               
+                TED102(yourName){
+                    alert(`TED102 member: ${yourName}`);
+                    alert(this.message);
+                    alert(this.$el.nodeName);
+                    alert(this.$data.message);                    
+                    alert(this.temp);
+                },
+                temp(){
+
+                },
+            },
+        });
+    </script>
+</body>
+</html>

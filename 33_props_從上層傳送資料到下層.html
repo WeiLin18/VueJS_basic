@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS -- props(從上層傳送資料到下層)</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template--> 
+       <!-- 1 -->
+       <!-- <my-component message="Hello" text="VueJS"></my-component> -->
+
+       <!-- 2 -->
+       <my-component the-message="Hello" the-text="VueJS"></my-component>
+
+    </div>
+
+    <script>
+        Vue.component('my-component',{
+            // 1
+            // props: ['message','text'],
+            // template: `
+            //     <h1>{{message}} {{text}}!</h1>
+            // `,
+
+            // 2
+            props: ['the-message','the-text'],
+            template: `
+                <h1>{{theMessage}} {{theText}}!</h1>
+            `,
+        });
+
+        let vm = new Vue({ 
+            el: '#app',
+        });
+    </script>
+</body>
+</html>

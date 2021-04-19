@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>VueJS -- component 的 data 必須是 function</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- Vue實例的data是物件，但組件的data必須是function -->
+    <div id="app">
+        <!--1-->
+        <my-component message="hello" text="vueJS"></my-component>
+        
+        <!--2-->
+        <my-component2 the-message="momo" the-text="cartoon"></my-component2>
+    </div>
+    <script>
+        Vue.component('my-component', {
+            props: ['message', 'text'],
+            template: `
+               <h1>{{message}}---<span>{{text}}</span></h1>
+            `,
+        });
+        Vue.component('my-component2', {
+            props: ['the-message', 'the-text'],
+            template: `
+               <h1>{{theMessage}}---<span>{{theText}}</span></h1>
+            `,
+        });
+        let vm = new Vue({ //Vue instance(Vue實例)
+            el: '#app',
+        });
+    </script>
+</body>
+
+</html>

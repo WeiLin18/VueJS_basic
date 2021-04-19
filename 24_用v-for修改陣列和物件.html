@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS -- v-for修改陣列和物件</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->        
+        <!-- 修改陣列 -->
+        <ul>
+            <!-- <li v-for="num in numArray">{{num}}</li> -->
+            <!-- <li v-for="(num,index) in numArray">Index {{index}} : {{num}}</li> -->
+        </ul>
+        <!-- 修改物件 -->
+        <ul>
+            <!-- <li v-for="value in numObject">{{value}}</li> -->
+            <!-- <li v-for="(value,key) in numObject">{{key}} : {{value}}</li> -->
+        </ul>
+        <hr>
+
+        <!-- ***** -->
+        <button @click="action">Click me!</button>
+
+        <!-- 陣列 -->
+        <ul>
+            <li v-for="num in numArray">{{num}}</li>
+        </ul>
+        <h2>{{sum}}</h2>
+        <hr>
+
+        <!-- 物件 -->
+        <ul>
+            <li v-for="(value,key) in numObject">{{key}} : {{value}}</li>
+        </ul>
+    </div>
+
+    <script>        
+        let vm = new Vue({    
+            el: '#app',      
+            data: {                
+                //陣列
+                numArray: [1,2,3,4,5,6,7,8,9,10],
+
+                //物件
+                numObject: {
+                    x:  5,
+                    y: 10,
+                    z: 15,
+                },
+                sum: 0,
+            },
+            methods: {
+                action(){
+                //將數字render到<li>
+                //陣列
+                   //新增刪除在後端
+                   //this.numArray.push(this.numArray.length + 1);
+                   //this.numArray.pop();
+
+                   //新增刪除在前端
+                   //this.numArray.unshift(this.numArray.length + 1);
+                   //this.numArray.shift()
+
+                   //任意處做新增刪除
+                   //this.numArray.splice(index);             //刪除
+                   //this.numArray.splice(index, 刪除的筆數);  //刪除
+                   //this.numArray.splice(index, 刪除的筆數, 100, 200, 300);  //新增
+                   //this.numArray.splice(5); 
+                   //this.numArray.splice(5,1); 
+                   //this.numArray.splice(5,0,100,200,300); 
+
+                   //this.numArray.sort();
+                   //this.numArray.reverse();
+
+                 //filter
+                    // 傳回值 = this.numArray.filter(function(data){篩選data條件});
+                    // this.numArray = this.numArray.filter(function(data){
+                    //     return data % 2 == 0;
+                    // });
+                    // this.numArray = this.numArray.filter(data => data % 2 == 0);
+                    // this.numArray = this.numArray.filter(data => data > 5);
+
+                 //map
+                    // 傳回值 = this.numArray.map(function(data){逐個處理並傳回結果});
+                    // this.numArray = this.numArray.map(function(data){
+                    //     return data * 5;
+                    // });
+                    // this.numArray = this.numArray.map(data => data * 5);
+
+                 //reduce
+                    // 傳回值 = this.numArray.reduce(function(accmulator,data){逐個處理,每次處理的結果放進累計器中});
+                    // this.sum = this.numArray.reduce((accmulator,data) => accmulator += data);
+
+                 // 修改陣列的內容
+                    // this.numArray[2] = 100;             //不是每次都可以
+                    // this.numArray.splice(2,1,100);      //可以
+
+                 // 清空陣列
+                    // this.numArray.length = 0;       //不行
+                    // this.numArray.splice(0);        //可以
+
+                    // 傳回值 = this.numArray.slice(index from, index to);
+                    // 傳回值 = this.numArray.slice(index begin, index end);
+                    // this.numArray = this.numArray.slice(0, 3);
+                
+                // 物件
+                 // 增加新成員 key / value
+                    // this.numObject.A = 500;  //無法增加
+                    // this.numObject.x = 100;  //可以修改
+
+                    // this.$set(物件, key, value);
+                    this.$set(this.numObject, 'A', 500);
+                },
+            },
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->        
+        <h1>{{message}}</h1>
+    </div>
+
+    <script>
+        // 1
+        // let vm = new Vue({    
+        //     el: '#app',   //CSS selector
+        //     // el: document.getElementById('app'),
+        //     // mount掛載: 把Vue instance和HTML元素做連結   
+        //     data: {                
+        //         message: 'Hello',
+        //     },
+        // });
+
+        // 2 先宣告，再掛載
+        // let vm = new Vue({   
+        //     data: {                
+        //         message: 'Hello',
+        //     },
+        // });
+        // vm.$mount('#app');
+
+        // 3 利用template和HTML元素做連結  
+        let vm = new Vue({ 
+            el: '#app',  
+            data: {                
+                message: 'Hello',
+            },
+            template: `
+                <div>
+                    <h2 style="color: red;">{{message}}</h2>
+                </div>
+            `,
+        });
+    </script>
+</body>
+</html>

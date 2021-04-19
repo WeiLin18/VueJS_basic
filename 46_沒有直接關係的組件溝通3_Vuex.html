@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS -- 沒有直接關係的組件溝通2</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/3.6.2/vuex.min.js"></script>
+    <!-- <script src="../js/vue.js"></script> -->
+</head>
+<body>
+    <!-- 
+        沒有直接關係的組件如何溝通?
+        1. 將會影響彼此的值，放在new Vue() -- 41_沒有直接關係的組件溝通1.html
+        2. event bus -- 42_沒有直接關係的組件溝通2.html
+        3. Vuex -- 本程式
+    -->
+    <div id="app">  <!--HTML DOM template-->
+        <button @click="addCount"> Add </button>
+        <h1>{{count}}</h1>
+    </div>
+
+    <script>
+        const store = new Vuex.Store({  //global store
+            state: {  //類似 new Vue() 裡面的data
+                count: 0,
+                x: 100,
+                y: true,
+                z: 'ABC',
+            },
+            mutations:{  //類似 new Vue() 裡面的methods
+                addCount(state){
+                    state.count += 1;
+                },
+            }
+        });
+
+        new Vue({ 
+            el: '#app',
+            store,     //store: store,
+            data: {
+                // count: 0,
+            },
+            methods: {
+                // addCount(){
+                //     this.count += 1;
+                // },
+                addCount(){
+                    this.$store.commit('addCount');
+                },
+            },
+            computed: {
+                count(){
+                    return this.$store.state.count;
+                },
+            },
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>VueJS</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!--HTML DOM template-->
+        <!-- <button @click="update"> Add </button> -->
+        <button @click="count+=1"> Add </button>
+        <button id="deleteButton"> Delete </button>
+        <h1>{{count}}</h1>
+    </div>
+
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                count: 0,
+            },
+            methods: {
+                // update(){
+                //     this.count += 1;
+                // },
+            },
+            computed: {},
+            beforeCreate() {
+                console.log(`beforeCreate() ---> count: ${this.count}`);
+                console.log(`beforeCreate() ---> el: ${this.$el}`);
+            },
+            created() {
+                console.log(`created() ---> count: ${this.count}`);
+                console.log(`created() ---> el: ${this.$el}`);
+            },
+            beforeMount() {
+                console.log(`beforeMount() ---> el: ${this.$el}`);
+            },
+            mounted() {
+                console.log(`mounted() ---> el: ${this.$el}`);
+            },
+            beforeUpdate() {
+                console.log(`beforeUpdate() ---> count: ${this.count}`);
+            },
+            updated() {
+                console.log(`updated() ---> count: ${this.count}`);
+            },
+            beforeDestroy() {
+                console.log(`beforeDestroy() ---> count: ${this.count}`);
+            },
+            destroyed() {
+                console.log(`destroyed() ---> count: ${this.count}`);
+            },
+        });
+
+        document.getElementById('deleteButton').addEventListener('click', function () {
+            vm.$destroy();
+        });
+    </script>
+</body>
+
+</html>

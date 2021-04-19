@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->
+        <select name="年">
+            <option v-for="year in years">{{year}}</option>
+        </select>
+        <select name="月份">
+                <!-- <option v-for="month in months">{{month}}</option> -->
+                <!-- <option v-for="month in 12">{{month}}</option> -->
+
+                <!-- <option v-for="(month,index) in months" v-bind:value="index+1">{{index+1}}: {{month}}</option> -->
+                <option v-for="(month,index) in months" :value="index+1">{{index+1}}: {{month}}</option>
+        </select>
+        <!-- <select name="日期">
+            <option v-for="day in 31">{{day}}</option>
+        </select> -->
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app', 
+            data: {      //變數存放的地方
+                message: 'Hello, VueJS!',
+                colors: ['red','orange','yellow','green','blue','indigo','violet'],
+                classmate: [{name:'Andy',age:25},{name:'Bella',age:25},{name:'Carl',age:23},{name:'Dale',age:21}],
+                months: ['January','February','March','April','May','June',
+                        'July','August','September','October','November','December'],
+                years: [2018,2019,2020,2021,2011]
+            },
+        });
+
+
+
+        // switch(month){
+        //     case 1:
+        //     case 3:
+        //     case 5:
+        //     case 7:
+        //     case 8:
+        //     case 10:
+        //     case 12:
+        //         days = 31;
+        //         break;
+        //     case 4:
+        //     case 6:
+        //     case 9:
+        //     case 11:
+        //         days = 30;
+        //         break;
+        //     default:
+        //         days = 28;
+        // }
+    </script>
+</body>
+</html>

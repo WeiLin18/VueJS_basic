@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->
+        <!-- <img src="../../images/Shinnosuke/Shinnosuke10.png"> -->
+
+        <!-- <img v-bind:src="imgURL"> -->
+        <img :src="imgURL">  <!-- v-bind 簡化成 「:」-->
+        <p>
+            <input type="text" :placeholder="message">
+        </p>
+    </div>
+
+    <script>
+        new Vue({    
+            el: '#app', 
+            data: {      //變數存放的地方
+                message: 'Hello, VueJS!',              
+                imgURL: '../../images/Shinnosuke/Shinnosuke10.png',
+            },
+            methods: {  //函數放這裡               
+                
+            },
+        });
+    </script>
+</body>
+</html>

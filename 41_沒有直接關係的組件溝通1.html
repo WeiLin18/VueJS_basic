@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS --沒有直接關係的組件溝通1</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        沒有直接關係的組件如何溝通?
+        1. 將會影響彼此的值，放在new Vue() -- 本程式
+        2. event bus -- 42_沒有直接關係的組件溝通2.html
+        3. Vuex -- 46_沒有直接關係的組件溝通3_Vuex.html
+    -->
+    <div id="app">  <!--HTML DOM template-->
+        <my-button @click.native="count+=1"></my-button>
+        <my-counter :the-count="count"></my-counter>
+    </div>
+
+    <script>
+        Vue.component('my-button',{
+            template: `<button> Add </button>`,
+        });
+        Vue.component('my-counter',{
+            props: ['the-count'],
+            template: `<h1> {{theCount}} </h1>`,
+        });
+
+        new Vue({ 
+            el: '#app',
+            data: {
+                count: 0,
+            },     
+        });
+    </script>
+</body>
+</html>

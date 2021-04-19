@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->
+        <button @click="enlarge">Enlarge</button>
+        <button @click="shrink">Shrink</button>
+        <!-- <h1 style="font-size: 50px;">Lorem ipsum dolor sit amet.</h1> -->
+        <h1 :style="changeSize">Lorem ipsum dolor sit amet.</h1>
+    </div>
+
+    <script>
+        new Vue({    
+            el: '#app', 
+            data: {      //變數存放的地方
+                message: '',
+                size: 16,
+                
+            },
+            methods: {  //函數放這裡               
+                enlarge(){
+                    this.size += 2;
+                },
+                shrink(){
+                    this.size -= 2;
+                },
+            },
+            computed: { //函數也可以放這裡，但是放在這裡的函數，不能傳參數，一定要有傳回值(return)    
+                changeSize(){
+                    return {
+                        // fontSize: `${this.size}px`,
+                        fontSize: this.size + 'px',
+                        color: 'maroon',
+                    };
+                },
+            },
+        });
+    </script>
+</body>
+</html>

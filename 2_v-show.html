@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->
+        <h1>{{message}}</h1>
+        <h3 v-show="loading">Loading</h3>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app', 
+            data: {      //變數存放的地方
+                message: 'Hello, VueJS!',
+                score: 100,
+                loading: true,
+            },
+        });
+    </script>
+</body>
+</html>

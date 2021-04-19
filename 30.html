@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->        
+        <todo-list></todo-list>
+    </div>
+    <script>
+        Vue.component('todo-input',{
+            data(){
+                return{
+                    task:'',
+                }
+            },
+            methods: {
+                submitData(){
+                    this.$emit('onAdd',this.task);
+                    this.task = '';
+                }
+            },
+            template:`
+            <form @submit.prevent="submitData">
+                <input v-model="task"/>  
+                <button @submit.prevent="submitData">Submit</button>  
+            </form>
+            `
+        })
+        Vue.component('todo-item',{
+            props:['theTask'],
+            template: `
+            <li>{{theTask}}</li>
+            `
+        })
+        Vue.component('todo-list',{
+            template:`
+            <div>
+                <todo-input @onAdd="addTask"></todo-input>
+                <ul>
+                    <todo-item v-for="task in tasks" :theTask="task"></todo-item>
+                </ul>
+            </div>
+            `,
+            data(){
+                return {
+                    tasks: [],
+                }
+            },
+            methods: {
+                addTask(newTask){
+                    this.tasks.push(newTask);
+                }
+            }
+        })
+        new Vue({
+            el: '#app',
+            data: {
+                messages: 'hello',
+            },
+        })
+    </script>
+</body>
+</html>

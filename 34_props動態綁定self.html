@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>VueJS -- component 的 data 必須是 function</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- Vue實例的data是物件，但組件的data必須是function -->
+    <div id="app">
+        <!--1-->
+        <post :the-text="message"></post>
+        <!--2-->
+        <post2 v-for="message in messageArray" :the-text="message"></post2>
+        <!--3-->
+        <!-- <post3 v-for="item in messageObject" :the-text="item.message" :author="item.owner" /> -->
+        <!--4-->
+        <!-- v-bind可直接傳物件給子層 -->
+        <post4 v-for="item in messageObject" v-bind="item" />
+
+    </div>
+    <script>
+     
+        let vm = new Vue({ //Vue instance(Vue實例)
+            el: '#app',
+            data:{
+                message: 'hello, guys!',
+                messageArray:['hello','props','world','!'],
+                messageObject:[
+                    {message: 'hello',owner:'Peter'},
+                    {message: 'moshi',owner:'naomi'},
+                ]
+            },
+            components: {
+                post: {
+                    props:['the-text'],
+                    template: `
+                    <div>
+                        <h1>{{theText}}</h1>
+                        </div>
+                    `
+                },
+                post2: {
+                    props:['the-text'],
+                    template: `
+                    <h2>{{theText}}</h2>
+                    `
+                },
+                post3: {
+                    props:['the-text', 'author'],
+                    template: `
+                    <div>
+                        <h1>{{theText}}</h1>
+                        <h2>{{author}}</h2>
+                        </div>
+                    `
+                },
+                post4: {
+                    props:['message', 'owner'],
+                    template: `
+                    <li>
+                        <h1>aaa{{message}}</h1>
+                        <h2>{{owner}}</h2>
+                    </li>
+                    `
+                },
+            }
+        });
+    </script>
+</body>
+
+</html>

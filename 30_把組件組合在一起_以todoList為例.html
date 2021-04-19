@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS -- 把組件組合在一起(To-Do list)</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->        
+        <todo-list></todo-list>
+    </div>
+
+    <script>
+        Vue.component('todo-item',{
+            props: ['xyz'],
+            template: `
+                <li>{{xyz}}</li>
+            `,
+        });
+
+        Vue.component('todo-input',{
+            data(){
+                return {
+                    task: '',
+                };
+            },
+            methods: {
+                submitData(){
+                    // this.$emit('自訂事件'[,...]);
+                    this.$emit('abc',this.task);
+                    this.task = '';
+                },
+            },
+            template: `
+                <form @submit.prevent="submitData">
+                    <input v-model="task">
+                    <button>Submit</button>
+                </form>
+            `,
+        });
+
+        Vue.component('todo-list',{            
+            data(){
+                return {
+                   tasks: [],
+                };
+            },
+            methods: {
+                addTask(item){
+                    this.tasks.push(item);
+                },
+            },
+            template: `
+                <div>
+                    <todo-input @abc="addTask"></todo-input>
+                        <!--
+                            當下層(todo-input)發出$emit('自訂事件')時，
+                            上層(todo-list)用『v-on:自訂事件』或『@自訂事件』接收
+                        -->
+                    <ol>
+                        <!--<todo-item v-for="task in tasks" v-bind:xyz="task"></todo-item>-->
+                        <todo-item v-for="task in tasks" :xyz="task"></todo-item>
+                            <!--
+                                xyz是自訂屬性，下層用props接收
+                            -->
+                    </ol>               
+                </div>
+            `,
+        });
+    
+        let vm = new Vue({    //Vue instance(Vue實例)
+            el: '#app',
+            data: {
+                message: 'Hello',
+            },
+        });
+    </script>
+</body>
+</html>
+
+<!-- 
+<form>
+    <input v-model="task">
+    <button>Submit</button>
+</form>
+
+<ol>
+    <li v-for="task in tasks">{{task}}</li>
+</ol> 
+-->

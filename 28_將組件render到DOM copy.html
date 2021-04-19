@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS -- component render to DOM</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->        
+       <!-- <my-component></my-component> -->
+       <!-- <select>
+           <my-select></my-select>
+       </select>
+       <ul>
+           <my-list></my-list>
+       </ul>
+       <table border="1">
+           <tr>
+                <the-td></the-td>
+           </tr>
+       </table> -->
+    </div>
+    <script>  
+        //global component
+        // Vue.component('組件名稱',{
+        //     ......
+        //     template: `用來定義視覺元件`,
+        // });
+        Vue.component('my-select',{
+            template: `<option>Hello select!</option>`,
+        });
+
+        Vue.component('my-list',{
+            template: `<li>Hello ul!</li>`,
+        });
+
+        Vue.component('the-td',{
+            template: `<td>Hello table!</td>`,
+        });
+    
+        let vm = new Vue({    
+            el: '#app',      
+            data: {},
+            methods: {},
+            computed: {},
+
+            //local component
+            components: {
+                // 'my-component': {  //kebab-case -> camelCase -> PascalCase
+                //     template: `<h1 style="color:red;">My Component</h1>`,
+                // },
+            },
+            template: `
+              <div>
+                <select>
+                    <my-select></my-select>
+                </select>
+                <ul>
+                    <my-list></my-list>
+                </ul>
+                <table border="1">
+                    <tr>
+                            <the-td></the-td>
+                    </tr>
+                </table>
+              </div>
+            `,
+        });
+    </script>
+</body>
+</html>

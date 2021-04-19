@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS -- 驗證 props</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->         
+        <counter :init="count"></counter>
+    </div>
+
+    <script>
+        let vm = new Vue({ 
+            el: '#app',
+            data: {
+                count: 0,
+            },
+
+            components: {
+                counter: { 
+                    //props: ['init'],  //props大部分是陣列
+
+                    //props也可以是物件
+                    props: {
+                        // init: Number,
+                        init: {
+                            type: Number,
+                            default: 100, //default(){return 及時運算的結果},
+                            validator(value){
+                                return value < 20;
+                            },
+                        },
+                    },
+                    data(){
+                        return {
+                            // count: 100,
+                            count: this.init,
+                        };
+                    },                  
+                    template: `
+                        <div>
+                            <button @click="count+=1"> Add </button>
+                            <h1 style="color: green;">{{count}}</h1>
+                        </div>
+                    `,
+                },
+            },
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS -- 下層傳送到上層的$emit自訂事件</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->  
+        <!-- 第一個例子 -->
+        <!-- 1 -->
+        <!-- <my-button></my-button> -->
+
+        <!-- 2-2,2-3,2-4 -->
+        <!-- <my-button @my-click="clicked"></my-button> -->
+
+        <!-- 第二個例子 -->
+        <!-- <counter></counter> -->
+        <!-- <counter @自訂事件="makeSync"></counter> -->
+        <counter @my-emit="makeSync"></counter>
+        <h1 style="color: red;">{{count}}</h1>
+    </div>
+
+    <script>
+        Vue.component('counter',{
+            template: `
+                <div>
+                    <button @click="count+=1"> Add </button>
+                    <button @click="sync"> Sync </button>
+                    <h1 style="color:green;">{{count}}</h1>
+                </div>
+            `,
+            data(){
+                return {
+                    count: 0,
+                };
+            },
+            methods: {
+                sync(){
+                    this.$emit('my-emit',this.count);
+                },
+            },
+        });
+        Vue.component('my-button',{
+            // 1
+            // template: `<button> Click me! </button>`,
+            // 2
+            template: `<button @click="myClick"> Click me! </button>`,
+            methods: {
+                myClick(){
+                    // 2-1
+                    // alert(`Hi, Child!`);
+
+                    // 2-2 沒有帶參數
+                    // this.$emit('my-click');  //child 發出自訂事件
+
+                    // 2-3 有帶參數
+                    // this.$emit('my-click', 100);  //child 發出自訂事件,並且傳一個參數
+
+                    // 2-4 有帶好幾個參數
+                    this.$emit('my-click', 100, 200, 300);
+                },
+            },
+        });
+
+        new Vue({ 
+            el: '#app',
+            data: {
+                count: 500,
+            },
+            methods: {
+            //第一個例子
+                // 2-2
+                // clicked(){
+                //     alert(`Hi, Parent!`);
+                // },
+
+                // 2-3
+                // clicked(x){
+                //     alert(`Hi, Parent! Give me ${x} dollars.`);
+                // },
+
+                // 2-4
+                // clicked(x, y, z){
+                //     alert(`Hi, Parent! Give me ${x} or ${y} or ${z} dollars.`);
+                // },
+            
+            //第二個例子
+                makeSync(count){
+                    this.count = count;
+                },
+            
+            },
+        });
+    </script>
+</body>
+</html>

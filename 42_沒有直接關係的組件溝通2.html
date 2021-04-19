@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS -- 沒有直接關係的組件溝通2</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        沒有直接關係的組件如何溝通?
+        1. 將會影響彼此的值，放在new Vue() -- 41_沒有直接關係的組件溝通1.html
+        2. event bus -- 本程式
+            透過共同的event bus:
+             - 一個組件發出自訂事件: bus.$emit('自訂事件')
+             - 另一個組件聆聽該事件: bus.$on('自訂事件',function(){})
+        3. Vuex -- 46_沒有直接關係的組件溝通3_Vuex.html
+    -->
+    <div id="app">  <!--HTML DOM template-->
+        <my-button></my-button>
+        <my-counter></my-counter>
+    </div>
+
+    <script>
+        const bus = new Vue();
+
+        Vue.component('my-button',{
+            // template: `<button> Add </button>`,
+            template: `<button @click="clicked"> Add </button>`,
+            methods: {
+                clicked(){
+                    bus.$emit('abc');  //自訂事件
+                },
+            },
+        });
+        Vue.component('my-counter',{
+            data(){
+                return {
+                    count: 0,
+                };
+            },
+            template: `<h1> {{count}} </h1>`,
+
+            //在mounted的時候聆聽該事件
+            mounted() {
+                bus.$on('abc',() => this.count += 1);
+            },
+        });
+
+        let vm = new Vue({ 
+            el: '#app',
+        });
+    </script>
+</body>
+</html>

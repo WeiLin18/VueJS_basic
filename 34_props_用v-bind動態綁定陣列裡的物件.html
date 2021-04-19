@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS -- 動態綁定props</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template--> 
+       <!-- 1 -->
+       <!-- <post the-text="hi"></post> -->
+       <!-- <post :the-text="message"></post> -->
+
+       <!-- 2 處理陣列 -->
+       <!-- <post v-for="message in messageArray" :the-text="message"></post> -->
+
+       <!-- 3 處理(陣列裡的)物件 -->
+       <!-- <post v-for="item in messageObject" :the-text="item.message" :author="item.owner"></post> -->
+       <!-- <post v-for="item in messageObject" v-bind:the-text="item.message" v-bind:author="item.owner" /> -->
+       <!-- <post v-for="item in messageObject" :the-text="item.message" :author="item.owner" /> -->
+
+       <!-- 4 render (陣列裡的)物件 -->
+       <post v-for="item in messageObject" v-bind="item" />
+
+    </div>
+
+    <script>
+        let vm = new Vue({ 
+            el: '#app',
+            data: {
+                // 1
+                // message: 'Hello, Props!',
+
+                // 2 建立陣列
+                // messageArray: ['Hello','Props','World','!'],
+
+                // 3, 4 建立(陣列裡的)物件
+                messageObject: [
+                    {message: 'Hello', owner: 'Andy'},
+                    {message: 'Props', owner: 'Brian'},
+                    {message: 'World', owner: 'Carl'},
+                    {message: '!', owner: 'Diane'},
+                ],
+            },
+
+            components: {
+                post: {
+                    // 1, 2
+                    // props: ['the-text'],
+                    // template: `<h1>{{theText}}</h1>`,
+
+                    // 3
+                    // props: ['the-text','author'],
+                    // template: `<h1>{{author}} : {{theText}}</h1>`,
+
+                    // 4
+                    props: ['message','owner'],
+                    template: `<h1>{{owner}} : {{message}}</h1>`,
+                },
+            },
+        });
+    </script>
+</body>
+</html>

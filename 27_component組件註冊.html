@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS -- component register</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->        
+       <my-component></my-component>
+    </div>
+
+    <div id="app2">       
+        <my-component></my-component>
+     </div>
+
+    <script>  
+        //global component
+        // Vue.component('組件名稱',{
+        //     ......
+        //     template: `用來定義視覺元件`,
+        // });
+
+        Vue.component('my-component',{ //kebab-case -> camelCase -> PascalCase
+            template: `<h1 style="color:red;">My Component</h1>`,
+        });
+    
+        let vm = new Vue({    
+            el: '#app',      
+            data: {},
+            methods: {},
+            computed: {},
+
+            //local component
+            // components: {},
+            components: {
+                // 'my-component': {  //kebab-case -> camelCase -> PascalCase
+                //     template: `<h1 style="color:red;">My Component</h1>`,
+                // },
+                // 'myComponent': {  //camelCase
+                //     template: `<h1 style="color:green;">My Component</h1>`,
+                // },
+                // 'MyComponent': {  //PascalCase
+                //     template: `<h1 style="color:blue;">My Component</h1>`,
+                // },
+            },
+        });
+
+        new Vue({
+            el: '#app2',
+        });
+    </script>
+</body>
+</html>

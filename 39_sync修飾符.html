@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS -- $emit, props, 修飾符sync</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template--> 
+        <!-- 1 -->
+        <!-- <counter @the-update="setOuterCount" :the-count="outerCount"></counter> -->
+        
+        <!-- 2 -->
+        <counter :the-count.sync="outerCount"></counter>
+        
+        
+        <h1>new Vue() -- {{outerCount}}</h1>
+    </div>
+
+    <script>
+        Vue.component('counter',{
+            props: ['the-count'],  //props: ['theCount'],
+            template: `
+                <div>
+                    <button @click="innerCount+=1"> Add </button>
+                    <button @click="sync"> Sync </button>
+                    <h1 style="color:green;">counter -- {{innerCount}}</h1>
+                </div>
+            `,
+            data(){
+                return {
+                    innerCount: this.theCount,
+                };
+            },
+            methods: {
+                sync(){
+                    // 1
+                    // this.$emit('the-update',this.innerCount);
+
+                    // 2
+                    this.$emit('update:theCount',this.innerCount);
+                },
+            },
+        });
+
+        new Vue({ 
+            el: '#app',
+            data: {
+                outerCount: 10,
+            },
+            methods: {
+                // 1 
+                // setOuterCount(count){
+                //     this.outerCount = count;
+                // },
+            },         
+        });
+    </script>
+</body>
+</html>

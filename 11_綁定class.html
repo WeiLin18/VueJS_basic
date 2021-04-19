@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+    <style>
+        .theButton{
+            background: rgb(180,100,30);
+            color: #fff;
+            border-radius: 8px;
+            padding: 2px 10px;
+        }
+        .noText{
+            background: #888;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->
+        <input type="text" v-model="message">
+        <!-- <button class="theButton noText">Click me!</button> -->
+        <button :class="btnClass">Click me!</button>
+    </div>
+
+    <script>
+        // 綁定class:
+        // 1.傳回字串
+        // 2.傳回物件
+        // 3.傳回物件(簡易)
+
+        new Vue({    
+            el: '#app', 
+            data: {      //變數存放的地方
+                message: '',
+            },
+            methods: {  //函數放這裡               
+               
+            },
+            computed: { //函數也可以放這裡，但是放在這裡的函數，不能傳參數，一定要有傳回值(return)    
+                btnClass(){
+                    // 1.傳回字串
+                    // if(this.message.length == 0){
+                    //     return 'theButton noText';
+                    // }else{
+                    //     return 'theButton';
+                    // }
+
+                    // 2.傳回物件
+                    // if(this.message.length == 0){
+                    //     return {
+                    //         theButton: true,
+                    //         noText: true,
+                    //     };
+                    // }else{
+                    //     return {
+                    //         theButton: true,
+                    //         noText: false,
+                    //     };
+                    // }
+
+                    // 3.傳回物件(簡易)
+                    return {
+                        theButton: true,
+                        noText: this.message.length == 0,
+                    };
+                },
+            },
+        });
+    </script>
+</body>
+</html>

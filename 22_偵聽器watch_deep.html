@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->        
+        <input v-model.lazy="num.x">
+    </div>
+
+    <script>        
+        let vm = new Vue({    
+            el: '#app',      
+            data: {                
+                num: {
+                    x:  5,
+                    y: 10,
+                    z: 15,
+                },
+            },
+            methods: {},
+            computed: {},
+            watch: {  //偵聽器: 主要用來偵聽data和computed的變化
+            // 1. 宣告成方法(函數)
+            
+            // 2. 宣告成物件
+                num: {
+                    handler(newValue,oldValue){
+                        console.log(`num: ${oldValue} ---> ${newValue}`);
+                    },
+                    immediate: false,  //false by default, if true --> 當Vue instance一建立(create)就立刻執行watch
+                    deep: true,    //false by default
+                },
+            },
+        });
+    </script>
+</body>
+</html>

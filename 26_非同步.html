@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS -- 非同步(請到web server上執行)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script>
+    <!-- <script src="../js/vue.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <style>
+        h1{
+            font-size: 18px;
+        }
+        img{
+            height: 250px;
+        }
+        .book{
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            width: 250px;
+            height: 350px;
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->
+        <div v-for="book in books" class="book">
+            <a :href="book.url">
+                <img :src="book.image">
+            </a>
+            <h1>{{book.title}}</h1>
+            <p>{{book.author}}</p>
+        </div>
+    </div>
+
+    <script>   
+
+        let vm = new Vue({    
+            el: '#app',      
+            data: {                
+                books: [],
+            },
+            methods: {
+               
+            },
+            mounted() {
+                // $.getJSON.then(function(res){});
+                // $.getJSON.then(res => {});
+                //then()傳回值是Promise物件: $().then().then().then()....
+
+              //jQuery       
+                // $.getJSON('./XML_JSON_CSV/bookData.json',function(res){})         
+                // $.getJSON('./XML_JSON_CSV/bookData.json').then(res => {
+                //     for(let i = 0; i < res.length; i++){
+                //         this.books.push(res[i]);
+                //     }
+                // });
+                
+                //語法: $().then().then()....
+                // $.getJSON('./XML_JSON_CSV/bookData.json').then(res => this.books = res);
+
+              //Axios
+                    // axios.get('./XML_JSON_CSV/bookData.json').then(res => console.log(res));
+                    // axios.get('./XML_JSON_CSV/bookData.json').then(res => console.log(res.data));
+                    // axios.get('./XML_JSON_CSV/bookData.json').then(res => this.books = res.data);
+
+                    //語法1:
+                    // axios.get('./XML_JSON_CSV/bookData.json')
+                        //  .then(res => this.books = res.data)  //成功時的處理函數
+                        //  .catch(error => console.log(error)) //失敗時的處理函數
+
+                    //語法2:
+                    // axios({
+                    //     method: 'get',
+                    //     headers: {'Content-Type':'application/json'},
+                    //     baseURL: 'http://localhost:8080',  //URL前面的東西
+                    //     url: 'AJAX_others/XML_JSON_CSV/bookData.json',
+                    //     params: {sn: 12345},  //http://localhost:8080/shop.php?sn=12345
+                    //     responseType: 'json',
+                    //     responseEncoding: 'utf8',
+                    // }).then(res => {})
+                    // .catch(error => {});
+            
+              // Fetch API
+                    // fetch('./XML_JSON_CSV/bookData.json').then(res => console.log(res));
+                    // fetch('./XML_JSON_CSV/bookData.json').then(res => console.log(res.json()));
+                    fetch('./XML_JSON_CSV/bookData.json').then(res => res.json()).then(res => this.books = res);
+                    // fetch('./XML_JSON_CSV/bookData.json', {method: 'GET'}).then(res => res.json()).then(res => this.books = res);
+                    
+                    //語法1:
+                    // fetch('url',{method: 'GET'}).then().then()....;
+
+                    //語法2:
+                    // fetch('url',{
+                    //     method: 'POST',
+                    //     body: encodeURI(JSON.stringify({
+                    //         name: 'Peter',
+                    //         age: 40,
+                    //         gender: 'male',
+                    //     })),
+                    //     header: {
+                    //         'Content-Type': 'application/x-www-from-urlencoded; charset=UTF-8',
+                    //     },
+                    // }).then().then()....;
+
+                    //語法3:
+                    // fetch('url',{
+                    //     method: ,
+                    //     body: ,
+                    //     header: ,
+                    //     mode: //cros(by default),no-cros,same-origin
+                    // }).then()...;
+                    
+            },
+        });
+    </script>
+</body>
+</html>
+
+<!-- JSON.stringify(obj,function(){});   //將JavaScript物件(obj)轉成JSON
+JSON.stringify(obj);  
+JSON.parse();  //將JSON轉成JavaScript的陣列或物件 -->
+
+<!-- 錯誤訊息: ......CROS......
+開發網頁的限制: 同源(同個網域)策略 (same-origin policy)
+不同網域: protocol, domain name, port number, 只要有一個不同就是不同網域
+http://140.115.236.71
+http://140.115.236.71:8080
+https://140.115.236.71
+
+https://www.google.com
+https://maps.google.com
+https://fonts.google.com -->
+
+<!-- 非同步:
+JavaScript: XMLHttpRequest物件
+jQuery: $.ajax()
+HTML5: fetch()
+套件: axios
+ES6: Promise then()
+ES7: async, await ....... -->

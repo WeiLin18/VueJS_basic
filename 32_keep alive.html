@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS -- 動態組件(加上keep alive)</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->        
+        <button @click="content='lessons'">Lessons</button>
+        <button @click="content='date'">Date</button>
+        <button @click="content='apply'">Apply</button>
+        <button @click="content='nothing'">Nothing</button>
+
+        <keep-alive>
+            <component :is="content"></component>
+            <!-- 透過 component元素，去指定屬性 is 進行v-bind -->
+        </keep-alive>
+    </div>
+
+    <script>
+        Vue.component('lessons',{
+            template: `
+                <ol>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                    <li>jQuery</li>
+                    <li>HTML5</li>
+                    <li>VueJS</li>
+                </ol>
+            `,
+        });
+        Vue.component('date',{
+            template: `
+                <p>
+                    <input type="checkbox"> Morning
+                    <input type="checkbox"> Afternoon
+                    <input type="checkbox"> Evening
+                </p>
+            `,
+        });
+        Vue.component('apply',{
+            template: `
+                <form>
+                    <p>
+                        <textarea></textarea>
+                    </p>
+                    <button>Submit</button>
+                </form>    
+            `,
+        });
+        Vue.component('nothing',{
+            template: `
+                <p>
+                    Name: <input type="text">
+                </p>
+            `,
+        });
+    
+        let vm = new Vue({    //Vue instance(Vue實例)
+            el: '#app',
+            data: {
+                content: 'lessons',
+            },
+        });
+    </script>
+</body>
+</html>

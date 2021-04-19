@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>VueJS</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!--HTML DOM template-->
+        <!-- <input type="text" v-model="message"> -->
+        <input type="text" :value="message" @keyup="setMessage">
+        <p>{{message}}</p>
+        <hr>
+
+        <textarea cols="22" rows="5" v-model="message"></textarea>
+        <p style="white-space:pre;font:16px monospace;">{{message}}</p>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: { //變數存放的地方
+                message: '',
+            },
+            methods: { //函數放這裡               
+                setMessage(e) {
+                    this.message = e.target.value;
+                },
+            },
+            computed: { //函數也可以放這裡，但是放在這裡的函數，不能傳參數，一定要有傳回值(return)    
+
+            },
+        });
+    </script>
+</body>
+
+</html>

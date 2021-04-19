@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS -- $emit 使用原生事件</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template--> 
+        <!-- <my-button @click="clicked"></my-button> -->
+        <my-button @click.native="clicked"></my-button>
+    </div>
+
+    <script>
+        Vue.component('my-button',{
+            template: `<button> Click me! </button>`,
+        });
+
+        new Vue({ 
+            el: '#app',
+            data: {},
+            methods: {  
+                clicked(){
+                    alert('Does it make sense?');
+                },
+            },         
+        });
+    </script>
+</body>
+</html>

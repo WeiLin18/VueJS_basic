@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS -- component 的 data 必須是 function</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- Vue實例的data是物件，但組件的data必須是function -->
+    <div id="app">  <!--HTML DOM template-->        
+        <!-- 1 -->
+        <!-- <button @click="addCount"> Add </button> -->
+        <!-- <button @click="count+=1"> Add </button>
+        <h1>{{count}}</h1> -->
+
+        <!-- 2 -->
+        <counter></counter>
+        <counter></counter>
+        <counter></counter>
+        <counter></counter>
+    </div>
+    <script>  
+        //global component
+        // Vue.component('組件名稱',{
+        //     ......
+        //     template: `用來定義視覺元件`,
+        // });
+        Vue.component('counter',{
+            //為什麼組件的data必須是function?
+            //因為Vue組件可以重複使用，如果counter組件有好幾個，它們應該各自運作，
+            //所以每次呼叫data的時候，會臨時建立物件並return回去
+            data(){
+                return {
+                    count: 0,
+                    score: 100,
+                    message: 'Hello',
+                };
+            },
+            template: `
+              <div>
+                <button @click="count+=1"> Add </button>
+                <h1>{{count}}</h1>
+              </div>
+            `,
+        });
+    
+        let vm = new Vue({    //Vue instance(Vue實例)
+            el: '#app',      
+            data: {
+                // count: 0,
+            },
+            methods: {
+                // addCount(){
+                //     this.count += 1;
+                // },
+            },
+            computed: {},
+        });
+    </script>
+</body>
+</html>

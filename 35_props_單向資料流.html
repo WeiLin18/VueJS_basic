@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS -- props的單向資料流</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template--> 
+        <button @click="count+=1"> Add </button>
+        <h1>{{count}}</h1>
+        <hr>
+
+        <counter :init="count"></counter>
+    </div>
+
+    <script>
+        let vm = new Vue({ 
+            el: '#app',
+            data: {
+                count: 0,
+            },
+
+            components: {
+                counter: { 
+                    props: ['init'],
+                    data(){
+                        return {
+                            // count: 100,
+                            count: this.init,
+                        };
+                    },                  
+                    template: `
+                        <div>
+                            <button @click="count+=1"> Add </button>
+                            <h1 style="color: green;">{{count}}</h1>
+                        </div>
+                    `,
+                },
+            },
+        });
+    </script>
+</body>
+</html>

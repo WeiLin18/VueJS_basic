@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->
+        <h1>{{message}}</h1>
+        <h3>{{score * 0.8}}</h3>
+        <input type="text" v-model="message">
+    </div>
+
+    <script>
+        // let today = new Date();
+        // let vm = new Vue();
+        new Vue({
+            el: '#app',  //el: document.getElementById('app'),
+            data: {      //變數存放的地方
+                message: 'Hello, VueJS!',
+                score: 100,
+            },
+        });
+    </script>
+</body>
+</html>

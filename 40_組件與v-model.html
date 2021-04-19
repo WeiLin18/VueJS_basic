@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>VueJS -- component 與 v-model</title>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script> -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">  <!--HTML DOM template-->
+        <!-- 39_sync修飾符.html -->
+        <!-- <counter :the-count.sync="outerCount"></counter> -->
+
+        <counter v-model="outerCount"></counter>
+        
+        <h1>new Vue() -- {{outerCount}}</h1>
+    </div>
+
+    <script>
+        Vue.component('counter',{
+            //自訂屬性和自訂事件
+            // props: ['the-count'],  //props: ['theCount'],
+            // event: 'update:theCount',
+
+            //使用v-model也可以自訂屬性和自訂事件，若無自訂名稱，可用value和input
+            //props: ['value'],
+
+            model:{
+                prop: 'theCount',
+                event:  'update:theCount',
+            },
+            props: ['the-count'], 
+            template: `
+                <div>
+                    <button @click="innerCount+=1"> Add </button>
+                    <button @click="sync"> Sync </button>
+                    <h1 style="color:green;">counter -- {{innerCount}}</h1>
+                </div>
+            `,
+            data(){
+                return {
+                    innerCount: this.theCount,
+                };
+            },
+            methods: {
+                sync(){
+                    this.$emit('update:theCount',this.innerCount);
+                },
+            },
+        });
+
+        new Vue({ 
+            el: '#app',
+            data: {
+                outerCount: 10,
+            },     
+        });
+    </script>
+</body>
+</html>
